@@ -17,15 +17,19 @@ window.addEventListener("DOMContentLoaded", event => {
     const square6 = document.getElementById('square-6')
     const square7 = document.getElementById('square-7')
     const square8 = document.getElementById('square-8')
+
+    let x = document.createElement('img')
+    x.setAttribute('src', 'https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-x.svg')
+
+    let o = document.createElement('img')
+    o.setAttribute('src', 'https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-o.svg')
+
     let counter = 0;
-    function checkTurn(counter) {
-        if (num % 2 !== 0) {
+
+    function checkTurn() {
+        if (counter % 2 !== 0) {
             // use X
-            let x = document.createElement('img')
-            x.setAttribute('src', 'https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-x.svg')
         } else {
-            let o = document.createElement('img')
-            o.setAttribute('src', 'https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-o.svg')
         }
     }
 
