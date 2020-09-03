@@ -6,6 +6,8 @@
 // When the player clicks an empty square, then it is filled with that player's symbol.
 // When the player clicks a square that already contains a symbol, the game does nothing.
 // The first click results in an "X". After that, the symbols "O" and "X" alternate with each click per the rules of tic-tac-toe.
+// each square should not have click counted more than one time.
+
 
 window.addEventListener("DOMContentLoaded", event => {
     const square0 = document.getElementById('square-0')
@@ -17,26 +19,32 @@ window.addEventListener("DOMContentLoaded", event => {
     const square6 = document.getElementById('square-6')
     const square7 = document.getElementById('square-7')
     const square8 = document.getElementById('square-8')
-
-    let x = document.createElement('img')
-    x.setAttribute('src', 'https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-x.svg')
-
-    let o = document.createElement('img')
-    o.setAttribute('src', 'https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-o.svg')
-
+    const board = document.getElementById('tic-tac-toe-board')
     let counter = 0;
 
+    board.addEventListener('click', (event) => {
+        let x = document.createElement('img')
+        x.setAttribute('src', 'https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-x.svg')
+
+        let o = document.createElement('img')
+        o.setAttribute('src', 'https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-o.svg')
+        console.log(event.target.id)
+        console.log(board.children.length)
+        if (event.target.children.length !== -1) {
+            counter++
+            console.log(event.target.children.length);
+            if (checkTurn()) {
+                event.target.appendChild(x)
+            } else {
+                event.target.appendChild(o)
+            }
+        }
+    })
     function checkTurn() {
         if (counter % 2 !== 0) {
-            // use X
+            return false
         } else {
+            return true
         }
     }
-
-
-
-
-
-
-
 })
