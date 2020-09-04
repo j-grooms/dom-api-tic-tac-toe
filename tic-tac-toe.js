@@ -21,19 +21,58 @@
 window.addEventListener("DOMContentLoaded", event => {
     const board = document.getElementById('tic-tac-toe-board')
     let counter = 0;
-    const squareValue = ['', '', '', '', '', '', '', '', ''];
+    let squareValue = ['', '', '', '', '', '', '', '', ''];
+    const reset = document.getElementById('new-game')
     // status.innerText = gameStatus;
     let gameStatus = '';
+    const giveUp = document.getElementById('give-up');
+    giveUp.disabled = false
+    const turn = document.createElement('h2')
+        document.body.appendChild(turn)
 
+
+
+
+
+    giveUp.addEventListener('click', (event) => {
+        giveUp.disabled = true;
+        reset.disabled = false;
+        if (checkXTurn()) {
+            gameStatus = 'O wins!'
+        document.getElementById("game-status").innerHTML = gameStatus;
+
+        } else {
+            gameStatus = 'X wins!'
+        document.getElementById("game-status").innerHTML = gameStatus;
+        }
+    })
+    reset.addEventListener('click', (event) => {
+        for (let i = 0; i <= 8; i++) {
+            // const element = array[i];
+            document.getElementById(`square-${[i]}`).innerHTML = ''
+        }
+        gameStatus = ''
+        turn.innerHTML = "X's Turn";
+        document.getElementById("game-status").innerHTML = gameStatus;
+        squareValue = ["", "", "", "", "", "", "", "", ""];
+        reset.disabled = true;
+        counter = 0
+        giveUp.disabled = false
+        })
     function checkGameStatus() {
         if (checkWinner() === 'x'){
             gameStatus += 'X wins!'
+            reset.disabled = false
         }
-        if(checkWinner() === 'o') {
+        else if (checkWinner() === 'o') {
             gameStatus += 'O wins!'
+            reset.disabled = false;
+        }
+        else if (counter === 9) {
+            gameStatus += 'No winner!'
+            reset.disabled = false;
         }
         document.getElementById('game-status').innerHTML = gameStatus;
-
 }
 
     board.addEventListener('click', (event) => {
@@ -44,7 +83,7 @@ window.addEventListener("DOMContentLoaded", event => {
 
             let isXTurn = checkXTurn();
             if (isXTurn) {
-
+                turn.innerHTML = "O's Turn"
                 let x = document.createElement('img')
                 x.setAttribute('src', 'https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-x.svg')
                 event.target.appendChild(x)
@@ -53,15 +92,12 @@ window.addEventListener("DOMContentLoaded", event => {
 
 
             } else {
-
+                turn.innerHTML = "X's Turn";
                 let o = document.createElement('img')
                 o.setAttribute('src', 'https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-o.svg')
                 event.target.appendChild(o)
                 squareValue[event.target.id.slice(event.target.id.length -1)] = 'o'
                 counter++
-
-
-
             }
         } else {
             console.log('pick another square')
@@ -81,25 +117,25 @@ window.addEventListener("DOMContentLoaded", event => {
             return squareValue[0]
           }
         if (squareValue[3] === squareValue[4] && squareValue[4] === squareValue[5] && squareValue[5] !== '') {
-            // do something because a player won on the first row!
+            return squareValue[3];
           }
         if (squareValue[6] === squareValue[7] && squareValue[7] === squareValue[8] && squareValue[8] !== '') {
-            // do something because a player won on the first row!
+            return squareValue[6];
           }
         if (squareValue[0] === squareValue[3] && squareValue[3] === squareValue[6] && squareValue[6] !== '') {
-            // do something because a player won on the first row!
+            return squareValue[0];
           }
         if (squareValue[1] === squareValue[4] && squareValue[4] === squareValue[7] && squareValue[7] !== '') {
-            // do something because a player won on the first row!
+            return squareValue[1];
           }
         if (squareValue[2] === squareValue[5] && squareValue[5] === squareValue[8] && squareValue[8] !== '') {
-            // do something because a player won on the first row!
+            return squareValue[2];
           }
         if (squareValue[0] === squareValue[4] && squareValue[4] === squareValue[8] && squareValue[8] !== '') {
-            // do something because a player won on the first row!
+            return squareValue[0];
           }
         if (squareValue[2] === squareValue[4] && squareValue[4] === squareValue[6] && squareValue[6] !== '') {
-            // do something because a player won on the first row!
+            return squareValue[2];
           }
     }
 })
