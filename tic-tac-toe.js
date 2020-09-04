@@ -23,28 +23,41 @@ window.addEventListener("DOMContentLoaded", event => {
     let counter = 0;
 
     board.addEventListener('click', (event) => {
-        let x = document.createElement('img')
-        x.setAttribute('src', 'https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-x.svg')
+        if (!event.target.id.startsWith('square-')) return;
+        console.log(event.currentTarget)
+        console.log('before', event.target.children)
+        if (event.target.innerHTML === '') {
 
-        let o = document.createElement('img')
-        o.setAttribute('src', 'https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-o.svg')
-        console.log(event.target.id)
-        console.log(board.children.length)
-        if (event.target.children.length !== -1) {
-            counter++
-            console.log(event.target.children.length);
-            if (checkTurn()) {
+            let isXTurn = checkXTurn();
+            if (isXTurn) {
+
+                let x = document.createElement('img')
+                x.setAttribute('src', 'https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-x.svg')
                 event.target.appendChild(x)
+
+                counter++
+
+
             } else {
+
+                let o = document.createElement('img')
+                o.setAttribute('src', 'https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-o.svg')
                 event.target.appendChild(o)
+
+                counter++
+
+
+
             }
-        }
-    })
-    function checkTurn() {
-        if (counter % 2 !== 0) {
-            return false
         } else {
-            return true
+            console.log('pick another square')
         }
+        console.log('after', event.target.children)
+    })
+
+    function checkXTurn() {
+
+        return counter % 2 === 0
+
     }
 })
